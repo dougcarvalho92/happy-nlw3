@@ -1,15 +1,15 @@
-import { Popup } from "react-leaflet";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
+import { Popup } from "react-leaflet";
+
 
 export const MapContainer = styled.div`
   width: 100vw;
   height: 100vh;
   display: flex;
-
   position: relative;
 `;
-export const BarraLateral = styled.div`
+export const BarraLateral = styled.aside`
   width: 440px;
   background: linear-gradient(329.54deg, #29b6d1 0%, #00c7c7 100%);
   padding: 80px;

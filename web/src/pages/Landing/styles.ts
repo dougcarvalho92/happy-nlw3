@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const LandingContainer = styled.div`
   background: linear-gradient(329.54deg, #29b6d1 0%, #00c7c7 100%);
