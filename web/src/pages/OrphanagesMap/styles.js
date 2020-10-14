@@ -1,3 +1,4 @@
+import { Popup } from "react-leaflet";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
@@ -14,7 +15,7 @@ export const BarraLateral = styled.div`
   padding: 80px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   flex-direction: column;
   h2 {
     font-size: 40px;
@@ -29,6 +30,7 @@ export const BarraLateral = styled.div`
   footer {
     display: flex;
     flex-direction: column;
+
     line-height: 24px;
     strong {
       font-weight: 800;
@@ -36,7 +38,7 @@ export const BarraLateral = styled.div`
   }
 `;
 export const CreateOrphanage = styled(Link)`
-z-index:999;
+  z-index: 999;
   position: absolute;
   right: 40px;
   bottom: 40px;
@@ -45,10 +47,38 @@ z-index:999;
   background: #15c3d6;
   border-radius: 20px;
   display: flex;
-  justify-content:center;
-  align-items:center;
+  justify-content: center;
+  align-items: center;
   transition: background-color 0.2s;
-  &:hover{
+  &:hover {
     background: #17d6eb;
+  }
+`;
+export const PopupMarker = styled(Popup)`
+  .leaflet-popup-content-wrapper {
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 20px;
+    box-shadow: none;
+  }
+  .leaflet-popup-content {
+    color: #0089a5;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 8px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    a {
+      width: 40px;
+      height: 40px;
+      background: #15c3d6;
+      border-radius: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  .leaflet-popup-tip-container{
+    display:none;
   }
 `;
