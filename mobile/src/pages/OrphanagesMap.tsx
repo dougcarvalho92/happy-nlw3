@@ -15,6 +15,7 @@ import api from "../services/api";
 import * as Location from "expo-location";
 
 import { AppLoading } from "expo";
+import useCurrentLocation from "../hooks/useCurrentLocation";
 
 interface OrphanageItem {
   id: number;
@@ -27,30 +28,13 @@ interface LocationPros {
   longitude: number;
 }
 const OrphanagesMap: React.FC = () => {
-  const [currentLocation, setCurrentLocation] = useState<LocationPros>();
+  const currentLocation = useCurrentLocation();
   const navigation = useNavigation();
   const [orphanages, setOrphanages] = useState<OrphanageItem[]>([]);
 
-  useEffect(() => {
-    const getCurrentPosition = async () => {
-      let { status } = await Location.requestPermissionsAsync();
-      if (status !== "granted") {
-        alert(
-          "Precisamos de permissão para acessasr sua localização para listar os orfanatos"
-        );
-        return;
-      }
-
-      let location = await Location.getCurrentPositionAsync();
-      const { latitude, longitude } = location.coords;
-      setCurrentLocation({ latitude, longitude });
-    };
-    getCurrentPosition();
-  }, []);
-
   useFocusEffect(
     useCallback(() => {
-      api.get('orphanages').then(response => {
+      api.get("orphanages").then((response) => {
         setOrphanages(response.data);
       });
     }, [])

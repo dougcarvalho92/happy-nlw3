@@ -7,12 +7,13 @@ import * as Location from "expo-location";
 
 import mapMarkerImg from "../../images/map-marker.png";
 import { AppLoading } from "expo";
+import useCurrentLocation from "../../hooks/useCurrentLocation";
 interface LocationPros {
   latitude: number;
   longitude: number;
 }
 export default function SelectMapPosition() {
-  const [currentLocation, setCurrentLocation] = useState<LocationPros>();
+  const currentLocation = useCurrentLocation();
 
   const navigation = useNavigation();
 
@@ -20,22 +21,7 @@ export default function SelectMapPosition() {
     latitude: 0,
     longitude: 0,
   });
-  useEffect(() => {
-    const getCurrentPosition = async () => {
-      let { status } = await Location.requestPermissionsAsync();
-      if (status !== "granted") {
-        alert(
-          "Precisamos de permissão para acessasr sua localização para listar os orfanatos"
-        );
-        return;
-      }
 
-      let location = await Location.getCurrentPositionAsync();
-      const { latitude, longitude } = location.coords;
-      setCurrentLocation({ latitude, longitude });
-    };
-    getCurrentPosition();
-  }, []);
 
   function handleNextStep() {
     navigation.navigate("OrphanageData", { position });
