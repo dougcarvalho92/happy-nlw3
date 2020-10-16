@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 import {
   Dimensions,
@@ -48,14 +48,13 @@ const OrphanagesMap: React.FC = () => {
     getCurrentPosition();
   }, []);
 
-  useFocusEffect(() => {
-    api
-      .get("/orphanages")
-      .then((result) => {
-        setOrphanages(result.data);
-      })
-      .catch((error) => console.error(error));
-  });
+  useFocusEffect(
+    useCallback(() => {
+      api.get('orphanages').then(response => {
+        setOrphanages(response.data);
+      });
+    }, [])
+  );
 
   function handleNavigateToDetail(id: number) {
     navigation.navigate("OrphanageDetails", { id });
