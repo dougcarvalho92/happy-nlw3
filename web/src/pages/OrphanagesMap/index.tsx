@@ -12,7 +12,7 @@ import {
 import mapIcon from "../../utils/mapIcon";
 import markerImg from "../../images/map-marker.svg";
 import api from "../../services/api";
-import Menu from "../../components/Menu";
+import { useAuth } from "../../context/OrphanagesContext";
 
 interface Orphanage {
   id: number;
@@ -22,6 +22,8 @@ interface Orphanage {
 }
 
 const OrphanagesMap: React.FC = () => {
+  const { signed } = useAuth();
+
   const [orphanages, setOrphanages] = useState<Orphanage[]>([]);
 
   useEffect(() => {
@@ -45,7 +47,7 @@ const OrphanagesMap: React.FC = () => {
           <span>Niterói</span>
         </footer>
       </BarraLateral>
-      <Menu />
+ 
       <Map
         center={[-22.9079689, -43.087459]}
         zoom={15}
@@ -69,9 +71,11 @@ const OrphanagesMap: React.FC = () => {
           </Marker>
         ))}
       </Map>
-      <CreateOrphanage to="/orphanages/create">
-        <FiPlus size={32} color="#fff" />
-      </CreateOrphanage>
+      {signed && (
+        <CreateOrphanage to="/orphanages/create">
+          <FiPlus size={32} color="#fff" />
+        </CreateOrphanage>
+      )}
     </MapContainer>
   );
 };

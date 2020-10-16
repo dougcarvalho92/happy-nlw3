@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import {
   LoginContainer,
@@ -9,6 +9,7 @@ import {
 
 import logo from "../../images/login-logo.svg";
 import { Link } from "react-router-dom";
+import Axios from "axios";
 
 interface Orphanage {
   id: number;
@@ -18,6 +19,22 @@ interface Orphanage {
 }
 
 const Login: React.FC = () => {
+  useEffect(() => {
+    if ("geolocation" in navigator) {
+      const location = navigator.geolocation.getCurrentPosition(function (
+        position
+      ) {
+        console.log("Latitude is :", position.coords.latitude);
+        console.log("Longitude is :", position.coords.longitude);
+        Axios.get("https://geolocation-db.com/json").then(result=>{
+          console.log(result);
+        })
+      });
+    } else {
+      console.log("Not Available");
+    }
+  }, []);
+
   return (
     <LoginContainer>
       <BarraLateral>

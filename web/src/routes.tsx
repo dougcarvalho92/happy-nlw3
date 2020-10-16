@@ -1,22 +1,39 @@
 import React from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import Landing from "./pages/Landing";
 import OrphanagesMap from "./pages/OrphanagesMap";
 import CreateOrphanage from "./pages/CreateOrphanage";
 import Orphanage from "./pages/Orphanage";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import { useAuth } from "./context/OrphanagesContext";
+import Dashboard from "./pages/Dashboard";
+
+function CustomRoute({ isPrivate = false, ...rest }) {
+  const { signed } = useAuth();
+
+  if (isPrivate && !signed) {
+    return <Redirect to="/login" />;
+  }
+
+  return <Route {...rest} />;
+}
 
 function Routes() {
-  return (
+  return ( 
     <BrowserRouter>
       <Switch>
-        <Route path="/" exact component={Landing} />
-        <Route path="/login" component={Login} />
-        <Route path="/register" component={Register} />
-        <Route path="/app" component={OrphanagesMap} />
-        <Route path="/orphanages/create" component={CreateOrphanage} />
-        <Route path="/orphanages/:id" component={Orphanage} />
+        <CustomRoute path="/" exact component={Landing} />
+        <CustomRoute path="/login" component={Login} />
+        <CustomRoute path="/register" component={Register} />
+        <CustomRoute isPrivate path="/app" component={OrphanagesMap} />
+        <CustomRoute  path="/dashboard" component={Dashboard} />
+        <CustomRoute
+          isPrivate
+          path="/orphanages/create"
+          component={CreateOrphanage}
+        />
+        <CustomRoute isPrivate path="/orphanages/:id" component={Orphanage} />
       </Switch>
     </BrowserRouter>
   );

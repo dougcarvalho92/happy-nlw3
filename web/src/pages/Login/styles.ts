@@ -41,7 +41,7 @@ export const FormContainer = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  text-align: center;
+ 
   background: #fff;
   width: 100%;
   fieldset {
@@ -101,7 +101,7 @@ export const FormContainer = styled.div`
     height: 64px;
     border: 0;
     cursor: pointer;
-    background: #3cdc8c;
+    background: #3cdc8c; 
     border-radius: 20px;
     color: #ffffff;
     font-weight: 800;
