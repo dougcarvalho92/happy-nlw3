@@ -1,0 +1,1 @@
+web: typeorm migration:run && node src/server.js

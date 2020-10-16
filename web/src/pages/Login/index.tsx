@@ -5,11 +5,12 @@ import {
   BarraLateral,
   FormContainer,
   RememberPass,
+  GoBackButton,
 } from "./styles";
 
 import logo from "../../images/login-logo.svg";
-import { Link } from "react-router-dom";
-import Axios from "axios";
+import { Link, useHistory } from "react-router-dom";
+import { FiArrowLeft } from "react-icons/fi";
 
 interface Orphanage {
   id: number;
@@ -19,21 +20,8 @@ interface Orphanage {
 }
 
 const Login: React.FC = () => {
-  useEffect(() => {
-    if ("geolocation" in navigator) {
-      const location = navigator.geolocation.getCurrentPosition(function (
-        position
-      ) {
-        console.log("Latitude is :", position.coords.latitude);
-        console.log("Longitude is :", position.coords.longitude);
-        Axios.get("https://geolocation-db.com/json").then(result=>{
-          console.log(result);
-        })
-      });
-    } else {
-      console.log("Not Available");
-    }
-  }, []);
+  const { goBack } = useHistory();
+  useEffect(() => {}, []);
 
   return (
     <LoginContainer>
@@ -49,6 +37,9 @@ const Login: React.FC = () => {
       </BarraLateral>
 
       <FormContainer>
+        <GoBackButton type="button" onClick={goBack}>
+          <FiArrowLeft size={24} color="#12afcb" />
+        </GoBackButton>
         <fieldset>
           <legend>Fazer Login</legend>
 

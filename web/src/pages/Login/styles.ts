@@ -16,6 +16,9 @@ export const BarraLateral = styled.aside`
   align-items: center;
   flex-direction: column;
   text-align: center;
+  header {
+    margin-bottom: 80px;
+  }
   h2 {
     font-size: 40px;
     font-weight: 800;
@@ -41,9 +44,10 @@ export const FormContainer = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
- 
+
   background: #fff;
   width: 100%;
+
   fieldset {
     border: 0;
     text-align: left;
@@ -101,7 +105,7 @@ export const FormContainer = styled.div`
     height: 64px;
     border: 0;
     cursor: pointer;
-    background: #3cdc8c; 
+    background: #3cdc8c;
     border-radius: 20px;
     color: #ffffff;
     font-weight: 800;
@@ -154,4 +158,20 @@ export const RememberPass = styled.fieldset`
     line-height: 24px;
     text-decoration: none;
   }
+`;
+
+export const GoBackButton = styled.button`
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  border: 0;
+  background: #EBF2F5;
+  border-radius: 16px;
+  top: 30px;
+  right: 30px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

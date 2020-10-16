@@ -58,13 +58,15 @@ export default function OrphanageData() {
     } catch (error) {
       console.log("Error=================>", error);
     }
-
-  
   }
   async function handleSelectImages() {
-    const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
+    var permission = await ImagePicker.requestCameraRollPermissionsAsync();
+    var status = permission.status;
+
     if (status !== "granted") {
       alert("Precisamos de acesso a galeria para adicionar imagens!");
+      status = await (await ImagePicker.requestCameraRollPermissionsAsync())
+        .status;
       return;
     }
     const result = await ImagePicker.launchImageLibraryAsync({
