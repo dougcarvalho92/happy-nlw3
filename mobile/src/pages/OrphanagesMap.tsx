@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   Dimensions,
@@ -9,15 +9,64 @@ import {
 } from "react-native";
 import MapView, { PROVIDER_GOOGLE, Marker, Callout } from "react-native-maps";
 import { Feather } from "@expo/vector-icons";
-import mapMarker from "../images/map-maker.png";
-import { useNavigation } from "@react-navigation/native";
+import mapMarker from "../images/map-marker.png";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import api from "../services/api";
+import * as Location from "expo-location";
 
+import { AppLoading } from "expo";
+
+interface OrphanageItem {
+  id: number;
+  name: string;
+  latitude: number;
+  longitude: number;
+}
+interface LocationPros {
+  latitude: number;
+  longitude: number;
+}
 const OrphanagesMap: React.FC = () => {
+  const [currentLocation, setCurrentLocation] = useState<LocationPros>();
   const navigation = useNavigation();
+  const [orphanages, setOrphanages] = useState<OrphanageItem[]>([]);
 
-  const handleNavigateToDetail = () => {
-    navigation.navigate("OrphanageDetail")
+  useEffect(() => {
+    const getCurrentPosition = async () => {
+      let { status } = await Location.requestPermissionsAsync();
+      if (status !== "granted") {
+        alert(
+          "Precisamos de permissão para acessasr sua localização para listar os orfanatos"
+        );
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync();
+      const { latitude, longitude } = location.coords;
+      setCurrentLocation({ latitude, longitude });
+    };
+    getCurrentPosition();
+  }, []);
+
+  useFocusEffect(() => {
+    api
+      .get("/orphanages")
+      .then((result) => {
+        setOrphanages(result.data);
+      })
+      .catch((error) => console.error(error));
+  });
+
+  function handleNavigateToDetail(id: number) {
+    navigation.navigate("OrphanageDetails", { id });
+  }
+  const handleNavigateToCreateOrphanage = () => {
+    navigation.navigate("SelectMapPosition");
   };
+
+  if (!currentLocation) {
+    return <AppLoading />;
+  }
 
   return (
     <View style={styles.container}>
@@ -25,34 +74,45 @@ const OrphanagesMap: React.FC = () => {
         style={styles.map}
         provider={PROVIDER_GOOGLE}
         initialRegion={{
-          latitude: -22.9079689,
-          longitude: -43.087459,
-          latitudeDelta: 0.008,
-          longitudeDelta: 0.008,
+          latitude: currentLocation.latitude,
+          longitude: currentLocation.longitude,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
         }}
       >
-        <Marker
-          icon={mapMarker}
-          calloutAnchor={{
-            x: 2.7,
-            y: 0.8,
-          }}
-          coordinate={{
-            latitude: -22.9079689,
-            longitude: -43.087459,
-          }}
-        >
-          <Callout tooltip onPress={handleNavigateToDetail}>
-            <View style={styles.calloutContainer}>
-              <Text style={styles.calloutText}>Lar da meninas</Text>
-            </View>
-          </Callout>
-        </Marker>
+        {orphanages.map((orphanage) => (
+          <Marker
+            key={orphanage.id}
+            icon={mapMarker}
+            calloutAnchor={{
+              x: 2.7,
+              y: 0.8,
+            }}
+            coordinate={{
+              latitude: orphanage.latitude,
+              longitude: orphanage.longitude,
+            }}
+          >
+            <Callout
+              tooltip
+              onPress={() => handleNavigateToDetail(orphanage.id)}
+            >
+              <View style={styles.calloutContainer}>
+                <Text style={styles.calloutText}>{orphanage.name}</Text>
+              </View>
+            </Callout>
+          </Marker>
+        ))}
       </MapView>
       <View style={styles.footer}>
-        <Text style={styles.footerText}>2 Orfanatos encontrados</Text>
-        <TouchableOpacity style={styles.createOrphanageButton}>
-          <Feather name="plus" color="#fff" />
+        <Text style={styles.footerText}>
+          {orphanages.length} Orfanatos encontrados
+        </Text>
+        <TouchableOpacity
+          style={styles.createOrphanageButton}
+          onPress={handleNavigateToCreateOrphanage}
+        >
+          <Feather name="plus" color="#fff" size={20} />
         </TouchableOpacity>
       </View>
     </View>
@@ -66,8 +126,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   map: {
-    width: Dimensions.get("window").width,
-    height: Dimensions.get("window").height,
+    width: Dimensions.get("screen").width,
+    height: Dimensions.get("screen").height,
   },
   calloutContainer: {
     width: 160,
