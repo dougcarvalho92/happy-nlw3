@@ -36,6 +36,7 @@ export default function SelectMapPosition() {
   return (
     <View style={styles.container}>
       <MapView
+       showsUserLocation={true}
         initialRegion={{
           latitude: currentLocation.latitude,
           longitude: currentLocation.longitude,

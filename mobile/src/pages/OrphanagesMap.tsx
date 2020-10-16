@@ -12,7 +12,7 @@ import { Feather } from "@expo/vector-icons";
 import mapMarker from "../images/map-marker.png";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import api from "../services/api";
-import * as Location from "expo-location";
+
 
 import { AppLoading } from "expo";
 import useCurrentLocation from "../hooks/useCurrentLocation";
@@ -56,6 +56,7 @@ const OrphanagesMap: React.FC = () => {
       <MapView
         style={styles.map}
         provider={PROVIDER_GOOGLE}
+        showsUserLocation={true}
         initialRegion={{
           latitude: currentLocation.latitude,
           longitude: currentLocation.longitude,
