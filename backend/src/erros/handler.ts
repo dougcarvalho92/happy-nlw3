@@ -1,6 +1,6 @@
 import { ErrorRequestHandler } from "express";
 import {ValidationError} from 'yup';
-
+import {QueryFailedError} from 'typeorm';
 
 
 interface ValidationErros{
@@ -16,6 +16,10 @@ const errorHandler: ErrorRequestHandler = (error, request, response, next) => {
     })
 
     return response.status(400).json({message: "Validations Fails", errors});
+  }
+  if(error instanceof QueryFailedError){
+    const msgError = error.message;
+    return response.status(400).json({message: "Validations Fails", error:msgError});
   }
 
 

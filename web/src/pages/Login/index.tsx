@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 
 import {
   LoginContainer,
@@ -11,18 +11,19 @@ import {
 import logo from "../../images/login-logo.svg";
 import { Link, useHistory } from "react-router-dom";
 import { FiArrowLeft } from "react-icons/fi";
-
-interface Orphanage {
-  id: number;
-  latitude: number;
-  longitude: number;
-  name: string;
-}
+import { useAuth } from "../../context/OrphanagesContext";
 
 const Login: React.FC = () => {
+  const { Login } = useAuth();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [reminder, setReminder] = useState(false);
   const { goBack } = useHistory();
-  useEffect(() => {}, []);
 
+  function handleLogin(e: FormEvent) {
+    e.preventDefault();
+    Login({ userinfo: { username: email, password }, reminder });
+  }
   return (
     <LoginContainer>
       <BarraLateral>
@@ -36,7 +37,7 @@ const Login: React.FC = () => {
         </footer>
       </BarraLateral>
 
-      <FormContainer>
+      <FormContainer onSubmit={handleLogin}>
         <GoBackButton type="button" onClick={goBack}>
           <FiArrowLeft size={24} color="#12afcb" />
         </GoBackButton>
@@ -48,10 +49,10 @@ const Login: React.FC = () => {
             <input
               id="email"
               type="email"
-              // value={name}
-              // onChange={(event) => {
-              //   setName(event.target.value);
-              // }}
+              value={email}
+              onChange={(event) => {
+                setEmail(event.target.value);
+              }}
             />
           </div>
 
@@ -60,10 +61,10 @@ const Login: React.FC = () => {
             <input
               id="password"
               type="password"
-              // value={name}
-              // onChange={(event) => {
-              //   setName(event.target.value);
-              // }}
+              value={password}
+              onChange={(event) => {
+                setPassword(event.target.value);
+              }}
             />
           </div>
         </fieldset>
@@ -72,10 +73,9 @@ const Login: React.FC = () => {
             <input
               type="checkbox"
               id="reminder"
-              // value={name}
-              // onChange={(event) => {
-              //   setName(event.target.value);
-              // }}
+              onChange={(event) => {
+                setReminder(!reminder);
+              }}
             />
             <label htmlFor="reminder">Lembrar-me</label>
           </div>

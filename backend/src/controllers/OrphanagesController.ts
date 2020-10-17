@@ -30,6 +30,7 @@ export default {
       instructions,
       opening_hours,
       open_on_weekends,
+      user_id,
     } = request.body;
 
     const orphanageRepository = getRepository(Orphanage);
@@ -45,6 +46,7 @@ export default {
       opening_hours,
       open_on_weekends: open_on_weekends === true,
       images,
+      user_id
     };
     const schema = Yup.object().shape({
       name: Yup.string().required(),
@@ -59,6 +61,7 @@ export default {
           path: Yup.string().required(),
         })
       ),
+      user_id: Yup.string().uuid().required()
     });
 
     await schema.validate(data, { abortEarly: false });

@@ -14,20 +14,22 @@ function CustomRoute({ isPrivate = false, ...rest }) {
 
   if (isPrivate && !signed) {
     return <Redirect to="/login" />;
+  } else if (signed && (rest.path === "/login" || rest.path === "/register")) {
+    return <Redirect to="/dashboard" />;
   }
 
   return <Route {...rest} />;
 }
 
 function Routes() {
-  return ( 
+  return (
     <BrowserRouter>
       <Switch>
         <CustomRoute path="/" exact component={Landing} />
         <CustomRoute path="/login" component={Login} />
         <CustomRoute path="/register" component={Register} />
         <CustomRoute isPrivate path="/app" component={OrphanagesMap} />
-        <CustomRoute  path="/dashboard" component={Dashboard} />
+        <CustomRoute isPrivate path="/dashboard" component={Dashboard} />
         <CustomRoute
           isPrivate
           path="/orphanages/create"

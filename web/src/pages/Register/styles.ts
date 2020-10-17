@@ -36,7 +36,7 @@ export const BarraLateral = styled.aside`
     }
   }
 `;
-export const FormContainer = styled.div`
+export const FormContainer = styled.form`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -94,9 +94,31 @@ export const FormContainer = styled.div`
       padding: 0 16px;
     }
   }
+  .input-block-check {
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+    input {
+      width: 24px;
+      height: 24px;
+      background-color: #f5f8fa;
+      border: 1px solid #d3e2e5;
+      box-sizing: border-box;
+      border-radius: 8px;
+      outline: none;
+    }
 
+    input:checked {
+      background-color: #37c77f;
+    }
+    label {
+      color: #8fa7b3;
+      margin-left: 10px;
+      line-height: 24px;
+    }
+  }
   .confirm-button {
-    margin-top: 64px;
+    margin-top: 24px;
     width: 70%;
     height: 64px;
     border: 0;
@@ -118,4 +140,14 @@ export const FormContainer = styled.div`
       background: #36cf82;
     }
   }
+`;
+
+export const ErrorContent = styled.div`
+  font-family: Nunito;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 28px;
+  background: linear-gradient(154.16deg, #fcf0f4 7.85%, #ffffff 91.03%);
+  color: #ff669d;
 `;

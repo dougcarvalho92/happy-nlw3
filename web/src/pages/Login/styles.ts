@@ -39,7 +39,7 @@ export const BarraLateral = styled.aside`
     }
   }
 `;
-export const FormContainer = styled.div`
+export const FormContainer = styled.form`
   display: flex;
   justify-content: center;
   align-items: center;
