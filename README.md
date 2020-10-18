@@ -1,5 +1,12 @@
+## 💻 Projeto
+
+O Happy é um projeto que visa facilitar visitas aos orfanatos próximos a você 💜 
+
+Este é um projeto desenvolvido durante a **[Next Level Week](https://nextlevelweek.com/)**, realizada pela **[@Rocketseat](https://github.com/Rocketseat)** durante os dias 12 a 18 de Outubro de 2020.
+
+
 <p align="center">
-  <img alt="Happy" src="./github/happy.gif" width="70%">
+  <img alt="Happy" src="./github/happy.gif" width="100%">
 </p>
 
 ## 🚀 Tecnologias
@@ -26,11 +33,7 @@ Essa é a lista dos desafios realizados até o momento
 - [x]  Logout da aplicação
 - [ ]  Deploy da aplicação
 
-## 💻 Projeto
 
-O Happy é um projeto que visa facilitar visitas aos orfanatos próximos a você 💜 
-
-Este é um projeto desenvolvido durante a **[Next Level Week](https://nextlevelweek.com/)**, realizada pela **[@Rocketseat](https://github.com/Rocketseat)** durante os dias 12 a 18 de Outubro de 2020.
 
 
 
