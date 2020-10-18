@@ -21,7 +21,7 @@ export default class User {
   level: number;
 
   @OneToMany(() => Orphanage, (orphanages) => orphanages.user, {
-    cascade: ["insert", "update"],
+    cascade: ["insert", "update", "remove"],
   })
   @JoinColumn({ name: "user_id" })
   orphanages: Orphanage[];

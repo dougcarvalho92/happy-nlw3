@@ -15,7 +15,7 @@ import { FiArrowLeft } from "react-icons/fi";
 import { useAuth } from "../../context/AuthContext";
 
 const Login: React.FC = () => {
-  const { Login, error } = useAuth();
+  const { Login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [reminder, setReminder] = useState(false);
@@ -23,10 +23,11 @@ const Login: React.FC = () => {
 
   async function handleLogin(e: FormEvent) {
     e.preventDefault();
-    await Login({
+    const result = await Login({
       userinfo: { username: email, password },
       reminder,
     });
+    console.log(result);
   }
   return (
     <LoginContainer>

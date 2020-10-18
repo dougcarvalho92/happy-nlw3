@@ -5,7 +5,6 @@ import api from "../services/api";
 interface AuthContextData {
   signed: boolean;
   loading: boolean;
-  error: ResponseError | {};
   Login(user: object): Promise<void>;
   CreateUser(user: object): Promise<void>;
   Logout(): void;
@@ -23,20 +22,15 @@ interface CreateUser {
     password: string;
     level: number;
   };
-
   reminder: boolean;
 }
-interface ResponseError {
-  message: string;
-}
+
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 export const AuthProvider: React.FC = ({ children }) => {
   const [signed, setSigned] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState<ResponseError>({
-    message: "",
-  });
+
   function setSessionData(token: string) {
     sessionStorage.setItem("@App:token", token);
   }
@@ -85,13 +79,13 @@ export const AuthProvider: React.FC = ({ children }) => {
         history.push("/app");
       }
     } catch (error) {
-      setErrorMessage(error);
+      console.log(error);
     }
   }
   async function CreateUser(userData: CreateUser) {
     try {
       if (userData.userinfo) {
-        const { token, message } = await api
+        const { token } = await api
           .post("/users", userData.userinfo)
           .then((res) => res.data);
 
@@ -108,7 +102,7 @@ export const AuthProvider: React.FC = ({ children }) => {
         }
       }
     } catch (error) {
-      setErrorMessage(error);
+      console.log(error);
     }
   }
   function Logout() {
@@ -123,7 +117,6 @@ export const AuthProvider: React.FC = ({ children }) => {
       value={{
         signed,
         loading,
-        error: errorMessage.message,
         Login,
         Logout,
         CreateUser,

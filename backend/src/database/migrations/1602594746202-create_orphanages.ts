@@ -50,6 +50,7 @@ export class createOrphanages1602594746202 implements MigrationInterface {
           {
             name: "user_id",
             type: "varchar",
+            isNullable: false,
           },
         ],
         foreignKeys: [

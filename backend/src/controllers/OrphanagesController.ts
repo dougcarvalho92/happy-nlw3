@@ -10,6 +10,7 @@ interface jwtResponse {
   iat: number;
   exp: number;
 }
+
 export default {
   async index(request: Request, response: Response) {
     const orphanageRepository = getRepository(Orphanage);
@@ -38,28 +39,29 @@ export default {
       opening_hours,
       open_on_weekends,
     } = request.body;
-    const [, token] = request.headers.authorization.split(" ");
 
-    const { id } = await jwt.verify(token) as jwtResponse;
+    const auth = request.headers.authorization;
+    const token = auth ? auth.split(" ")[1] : "";
+
+    const { id } = jwt.verify(token) as jwtResponse;
 
     if (token && id) {
- 
       const orphanageRepository = getRepository(Orphanage);
       const requestImages = request.files as Express.Multer.File[];
       const images = requestImages.map((image) => ({ path: image.filename }));
 
       const data = {
-        name,
-        latitude,
-        longitude,
-        about,
-        instructions,
-        opening_hours,
+        name: name as string,
+        latitude: latitude as number,
+        longitude: latitude as number,
+        about: about as string,
+        instructions: instructions as string,
+        opening_hours: opening_hours as string,
         open_on_weekends: open_on_weekends === true,
         images,
-        user_id: id,
+        user: id,
       };
-      console.log(data);
+
       const schema = Yup.object().shape({
         name: Yup.string().required(),
         latitude: Yup.number().required(),
@@ -73,15 +75,16 @@ export default {
             path: Yup.string().required(),
           })
         ),
-        user_id: Yup.string().required(),
       });
 
       await schema.validate(data, { abortEarly: false });
+
       const orphanage = orphanageRepository.create(data);
+
 
       await orphanageRepository.save(orphanage);
 
-      return response.status(201).json(orphanage);
+      return response.status(201).json(orphanages_view.render(orphanage));
     }
   },
 };
