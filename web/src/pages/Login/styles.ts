@@ -102,6 +102,7 @@ export const FormContainer = styled.form`
   .confirm-button {
     margin-top: 64px;
     width: 70%;
+    max-width: 400px;
     height: 64px;
     border: 0;
     cursor: pointer;

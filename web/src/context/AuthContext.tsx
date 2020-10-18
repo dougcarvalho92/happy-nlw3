@@ -34,7 +34,9 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 export const AuthProvider: React.FC = ({ children }) => {
   const [signed, setSigned] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState<ResponseError>({message: ""});
+  const [errorMessage, setErrorMessage] = useState<ResponseError>({
+    message: "",
+  });
   function setSessionData(token: string) {
     sessionStorage.setItem("@App:token", token);
   }
@@ -58,7 +60,7 @@ export const AuthProvider: React.FC = ({ children }) => {
         const result = await api.get("/users/token");
         if (result.data.id) {
           setSigned(true);
-          history.push("/dashboard");
+          history.push("/app");
         } else {
           setSigned(false);
         }
@@ -118,7 +120,14 @@ export const AuthProvider: React.FC = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ signed, loading, error: errorMessage.message, Login, Logout, CreateUser }}
+      value={{
+        signed,
+        loading,
+        error: errorMessage.message,
+        Login,
+        Logout,
+        CreateUser,
+      }}
     >
       {children}
     </AuthContext.Provider>

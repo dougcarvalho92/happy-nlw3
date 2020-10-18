@@ -14,7 +14,7 @@ import { FiArrowLeft } from "react-icons/fi";
 import { useAuth } from "../../context/AuthContext";
 
 const Login: React.FC = () => {
-  const { Login } = useAuth();
+  const { Login, error } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [reminder, setReminder] = useState(false);
