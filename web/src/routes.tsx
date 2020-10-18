@@ -51,7 +51,7 @@ const Routes: React.FC = () => {
           path="/orphanages/create"
           component={CreateOrphanage}
         />
-        <CustomRoute isPrivate path="/orphanages/:id" component={Orphanage} />
+        <CustomRoute  path="/orphanages/:id" component={Orphanage} />
       </Switch>
     </Router>
   );

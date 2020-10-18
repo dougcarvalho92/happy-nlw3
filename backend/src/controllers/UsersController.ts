@@ -15,24 +15,25 @@ export default {
     const [hashType, hash] = request.headers.authorization.split("Basic");
     const [email, password] = Buffer.from(hash, "base64").toString().split(":");
 
-    const hashPass = bcrypt.hashSync(password, 8);
+    const hashPass = await bcrypt.hashSync(password, 8);
     const user = await usersRepository.findOne({
       where: [{ email: email }, { password: hashPass }],
     });
 
     if (user != undefined) {
-      const token = jwt.sign({ id: user.id });
-      const userTokenJson = {
-        user: user_view.render(user),
-        token,
-      };
-
-      return response.json(userTokenJson);
-    } else {
-      return response
-        .status(401)
-        .json({ message: "Usuário ou password incorretos" });
+      const compare = await bcrypt.compare(password, user.password);
+      if (compare) {
+        const token = jwt.sign({ id: user.id });
+        const userTokenJson = {
+          user: user_view.render(user),
+          token,
+        };
+        return response.status(200).json(userTokenJson);
+      }
     }
+    return response
+      .status(401)
+      .json({ message: "Usuário ou password incorretos" });
   },
   async create(request: Request, response: Response) {
     const usersRepository = getRepository(User);

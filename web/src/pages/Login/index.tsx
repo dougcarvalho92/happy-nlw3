@@ -18,11 +18,11 @@ const Login: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [reminder, setReminder] = useState(false);
-  const { goBack } = useHistory();
+  const { push } = useHistory();
 
   function handleLogin(e: FormEvent) {
     e.preventDefault();
-    
+
     Login({ userinfo: { username: email, password }, reminder });
   }
   return (
@@ -39,7 +39,7 @@ const Login: React.FC = () => {
       </BarraLateral>
 
       <FormContainer onSubmit={handleLogin}>
-        <GoBackButton type="button" onClick={goBack}>
+        <GoBackButton type="button" onClick={() => push("/app")}>
           <FiArrowLeft size={24} color="#12afcb" />
         </GoBackButton>
         <fieldset>
