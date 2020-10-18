@@ -25,12 +25,18 @@ Esse projeto foi desenvolvido utilizando as seguintes tecnologias:
 
 ## 🚀 Desafios 2.0 realizado
 
-Esse projeto foi desenvolvido utilizando as seguintes tecnologias:
+Essa é a lista dos desafios realizados até o momento
 
-- Layout da aplicação
-- Acesso restrito
-- Localização real do usua´rio
-- Logout da aplicação
+- [x]  Layout da aplicação
+- [x]  Acesso Restrito
+- [ ]  Recuperação de senhas
+- [x]  Cadastro de orfanatos
+- [ ]  Splash screen no react native com expo
+- [ ]  OnBoarding do usuário
+- [x]  Localização real do usuário
+- [ ]  Cadastro em múltiplas etapas
+- [x]  Logout da aplicação
+- [ ]  Deploy da aplicação
 
 ## 💻 Projeto
 
