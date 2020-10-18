@@ -1,14 +1,13 @@
 import styled from "styled-components";
 
-import NotFound from "../../images/notfoundicon.svg";
+
 
 export const Container = styled.div`
 
   height: 100vh;
   width: 100%;
-  background-image: url(${NotFound});
-  background-position: center center;
-  background-repeat: no-repeat;
+
+
 `;
 
 export const Content = styled.div`

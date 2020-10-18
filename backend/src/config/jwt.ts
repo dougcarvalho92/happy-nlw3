@@ -8,4 +8,5 @@ export default {
     });
   },
   verify: (token: string) => jwt.verify(token, authConfig.secret),
+  decode: (token: string) => jwt.decode(token),
 };

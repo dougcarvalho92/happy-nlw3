@@ -49,14 +49,14 @@ export class createOrphanages1602594746202 implements MigrationInterface {
           },
           {
             name: "user_id",
-            type: "",
+            type: "varchar",
           },
         ],
         foreignKeys: [
           {
             name: "OrphanageUser",
             columnNames: ["user_id"],
-            referencedTableName: "user",
+            referencedTableName: "users",
             referencedColumnNames: ["id"],
             onUpdate: "CASCADE",
             onDelete: "CASCADE",

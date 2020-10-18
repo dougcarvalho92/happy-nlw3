@@ -25,9 +25,7 @@ const Routes: React.FC = () => {
       return <Loading />;
     }
     if (isPrivate && !signed) {
-      history.push(
-        history.location.pathname ? history.location.pathname : "/dashboard"
-      );
+      history.push("/login");
     }
 
     return <Route {...rest} />;

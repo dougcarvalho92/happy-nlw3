@@ -57,7 +57,7 @@ export const AuthProvider: React.FC = ({ children }) => {
         const result = await api.get("/users/token");
         if (result.data.id) {
           setSigned(true);
-          history.push('/app');
+          history.push('/dashboard')
         } else {
           setSigned(false);
         }
@@ -79,7 +79,7 @@ export const AuthProvider: React.FC = ({ children }) => {
         setSessionData(token);
       }
       setSigned(true);
-      history.push('/app');
+      history.push("/app");
     }
   }
   async function CreateUser(userData: CreateUser) {
@@ -97,7 +97,7 @@ export const AuthProvider: React.FC = ({ children }) => {
           setSessionData(token);
         }
         setSigned(true);
-        history.push('/app');
+        history.push("/app");
       }
     } else {
       console.log("Campos não enviados");
@@ -107,7 +107,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     clearStorage();
     api.defaults.headers.Authorization = undefined;
     setSigned(false);
-    history.push('/login');
+    history.push("/login");
   }
 
   return (
