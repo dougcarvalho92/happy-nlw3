@@ -11,7 +11,7 @@ import {
 import logo from "../../images/login-logo.svg";
 import { Link, useHistory } from "react-router-dom";
 import { FiArrowLeft } from "react-icons/fi";
-import { useAuth } from "../../context/OrphanagesContext";
+import { useAuth } from "../../context/AuthContext";
 
 const Login: React.FC = () => {
   const { Login } = useAuth();
@@ -22,6 +22,7 @@ const Login: React.FC = () => {
 
   function handleLogin(e: FormEvent) {
     e.preventDefault();
+    
     Login({ userinfo: { username: email, password }, reminder });
   }
   return (

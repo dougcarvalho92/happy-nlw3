@@ -12,7 +12,8 @@ import {
 import mapIcon from "../../utils/mapIcon";
 import markerImg from "../../images/map-marker.svg";
 import api from "../../services/api";
-import { useAuth } from "../../context/OrphanagesContext";
+import { useAuth } from "../../context/AuthContext";
+import RestrictMenu from "../../components/RestrictMenu";
 
 interface Orphanage {
   id: number;
@@ -47,7 +48,8 @@ const OrphanagesMap: React.FC = () => {
           <span>Niterói</span>
         </footer>
       </BarraLateral>
- 
+    
+    <RestrictMenu />
       <Map
         center={[-22.9079689, -43.087459]}
         zoom={15}

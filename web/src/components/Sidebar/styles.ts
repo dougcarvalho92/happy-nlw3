@@ -35,7 +35,7 @@ export const AppSidebar = styled.aside`
     background: #17d6eb;
   }
 `;
-export const MenuItem = styled(Link)`
+export const MenuItem = styled.div`
   width: 48px;
   height: 48px;
   border: 0;
@@ -47,7 +47,7 @@ export const MenuItem = styled(Link)`
   justify-content: center;
   align-items: center;
 
-  + a {
+  + div {
     margin-top: 10px;
   }
   :hover {

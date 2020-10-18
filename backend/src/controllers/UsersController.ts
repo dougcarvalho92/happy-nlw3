@@ -53,12 +53,16 @@ export default {
         level: Yup.number().required(),
       });
       const data = { email, password, level };
+
       const hashPass = bcrypt.hashSync(password, 8);
+
       await schema.validate(data, { abortEarly: false });
       data.password = hashPass;
+
       const user = usersRepository.create(data);
       const userCreated = await usersRepository.save(user);
       const token = jwt.sign({ id: userCreated.id });
+
       const userTokenJson = {
         user: user_view.render(user),
         token,

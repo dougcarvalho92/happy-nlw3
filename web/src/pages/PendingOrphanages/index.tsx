@@ -1,9 +1,8 @@
-import React from 'react';
-
-// import { Container } from './styles';
+import React from "react";
+import DefaultPage from "../../components/DefaultPage";
 
 const PendingOrphanages: React.FC = () => {
-  return <div />;
-}
+  return <DefaultPage title="Pendente"></DefaultPage>;
+};
 
 export default PendingOrphanages;

@@ -9,7 +9,7 @@ import {
 
 import logo from "../../images/login-logo.svg";
 
-import { useAuth } from "../../context/OrphanagesContext";
+import { useAuth } from "../../context/AuthContext";
 
 interface ErrosTypes {
   email?: string;
@@ -28,7 +28,7 @@ const Register: React.FC = () => {
     e.preventDefault();
     console.log("aqui 1");
     if (await validate()) {
-      const data = { email, password, level: 1, reminder };
+      const data = { userinfo: { email, password, level: 1 }, reminder };
 
       CreateUser(data);
     }

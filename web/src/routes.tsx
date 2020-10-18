@@ -1,35 +1,53 @@
 import React from "react";
-import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route, Router, matchPath } from "react-router-dom";
 import Landing from "./pages/Landing";
 import OrphanagesMap from "./pages/OrphanagesMap";
 import CreateOrphanage from "./pages/CreateOrphanage";
 import Orphanage from "./pages/Orphanage";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import { useAuth } from "./context/OrphanagesContext";
+import { useAuth } from "./context/AuthContext";
+
+import Confirmation from "./pages/Confirmation";
 import Dashboard from "./pages/Dashboard";
+import history from "./history";
+import PendingOrphanages from "./pages/PendingOrphanages";
 
-function CustomRoute({ isPrivate = false, ...rest }) {
-  const { signed } = useAuth();
+const Routes: React.FC = () => {
+  const { signed, loading } = useAuth();
 
-  if (isPrivate && !signed) {
-    return <Redirect to="/login" />;
-  } else if (signed && (rest.path === "/login" || rest.path === "/register")) {
-    return <Redirect to="/dashboard" />;
+  const Loading = () => {
+    return <div className="loading">Carregando</div>;
+  };
+
+  function CustomRoute({ isPrivate = false, ...rest }) {
+    if (loading) {
+      return <Loading />;
+    }
+    if (isPrivate && !signed) {
+      history.push(
+        history.location.pathname ? history.location.pathname : "/dashboard"
+      );
+    }
+
+    return <Route {...rest} />;
   }
 
-  return <Route {...rest} />;
-}
-
-function Routes() {
   return (
-    <BrowserRouter>
+    <Router history={history}>
       <Switch>
         <CustomRoute path="/" exact component={Landing} />
         <CustomRoute path="/login" component={Login} />
         <CustomRoute path="/register" component={Register} />
-        <CustomRoute isPrivate path="/app" component={OrphanagesMap} />
-        <CustomRoute isPrivate path="/dashboard" component={Dashboard} />
+        <CustomRoute path="/app" component={OrphanagesMap} />
+        <CustomRoute isPrivate path="/confirmation" component={Confirmation} />
+        <CustomRoute isPrivate exact path="/dashboard" component={Dashboard} />
+        <CustomRoute
+          isPrivate
+          path="/dashboard/pending"
+          component={PendingOrphanages}
+        />
+
         <CustomRoute
           isPrivate
           path="/orphanages/create"
@@ -37,8 +55,8 @@ function Routes() {
         />
         <CustomRoute isPrivate path="/orphanages/:id" component={Orphanage} />
       </Switch>
-    </BrowserRouter>
+    </Router>
   );
-}
+};
 
 export default Routes;

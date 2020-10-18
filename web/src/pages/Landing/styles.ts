@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import logoImg from "../../images/landing.svg";
 
 export const LandingContainer = styled.div`
   background: linear-gradient(329.54deg, #29b6d1 0%, #00c7c7 100%);
@@ -20,7 +21,7 @@ export const ContentWrapper = styled.div`
   align-items: flex-start;
   flex-direction: column;
   justify-content: space-between;
-  background: url("../../images/landing.svg") no-repeat 80% center;
+  background: url(${logoImg}) no-repeat 80% center;
 `;
 
 export const Main = styled.div`
