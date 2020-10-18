@@ -12,11 +12,12 @@ Este é um projeto desenvolvido durante a **[Next Level Week](https://nextlevelw
 ## 🚀 Tecnologias
 
 Esse projeto foi desenvolvido utilizando as seguintes tecnologias:
-
+- [React](https://pt-br.reactjs.org/)
 - [Node.js](https://nodejs.org/en/)
+- [React Native](https://reactnative.dev/)
+- [TypeORM](https://typeorm.io/#/)
 - [Express](https://expressjs.com/pt-br/)
 - [SQLite](https://www.sqlite.org/index.html)
-- [handlebars](https://handlebarsjs.com/)
 
 ## 🚀 Desafios 2.0 realizado
 
@@ -32,10 +33,5 @@ Essa é a lista dos desafios realizados até o momento
 - [ ]  Cadastro em múltiplas etapas
 - [x]  Logout da aplicação
 - [ ]  Deploy da aplicação
-
-
-
-
-
 
 <p align="center">Desenvolvido por Douglas Carvalho</p>
