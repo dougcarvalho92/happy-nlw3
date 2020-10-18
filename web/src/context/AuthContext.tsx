@@ -1,12 +1,11 @@
 import React, { createContext, useState, useEffect, useContext } from "react";
 import history from "../history";
-
 import api from "../services/api";
 
 interface AuthContextData {
   signed: boolean;
   loading: boolean;
-
+  error: ResponseError | {};
   Login(user: object): Promise<void>;
   CreateUser(user: object): Promise<void>;
   Logout(): void;
@@ -27,13 +26,15 @@ interface CreateUser {
 
   reminder: boolean;
 }
-
+interface ResponseError {
+  message: string;
+}
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 export const AuthProvider: React.FC = ({ children }) => {
   const [signed, setSigned] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  const [errorMessage, setErrorMessage] = useState<ResponseError>({message: ""});
   function setSessionData(token: string) {
     sessionStorage.setItem("@App:token", token);
   }
@@ -57,7 +58,7 @@ export const AuthProvider: React.FC = ({ children }) => {
         const result = await api.get("/users/token");
         if (result.data.id) {
           setSigned(true);
-          history.push('/dashboard')
+          history.push("/dashboard");
         } else {
           setSigned(false);
         }
@@ -69,28 +70,10 @@ export const AuthProvider: React.FC = ({ children }) => {
 
   async function Login(userData: Credential) {
     const response = await api.get("/users", { auth: userData.userinfo });
-
-    api.defaults.headers.Authorization = `Bearer ${response.data.token}`;
-    const token = response.data.token;
-    if (token) {
-      if (userData.reminder) {
-        setLocalStorageData(token);
-      } else {
-        setSessionData(token);
-      }
-      setSigned(true);
-      history.push("/app");
-    }
-  }
-  async function CreateUser(userData: CreateUser) {
-    if (userData.userinfo) {
-      const { token, message } = await api
-        .post("/users", userData.userinfo)
-        .then((res) => res.data);
-
+    try {
+      api.defaults.headers.Authorization = `Bearer ${response.data.token}`;
+      const token = response.data.token;
       if (token) {
-        api.defaults.headers.Authorization = `Bearer ${token}`;
-
         if (userData.reminder) {
           setLocalStorageData(token);
         } else {
@@ -99,8 +82,31 @@ export const AuthProvider: React.FC = ({ children }) => {
         setSigned(true);
         history.push("/app");
       }
-    } else {
-      console.log("Campos não enviados");
+    } catch (error) {
+      setErrorMessage(error);
+    }
+  }
+  async function CreateUser(userData: CreateUser) {
+    try {
+      if (userData.userinfo) {
+        const { token, message } = await api
+          .post("/users", userData.userinfo)
+          .then((res) => res.data);
+
+        if (token) {
+          api.defaults.headers.Authorization = `Bearer ${token}`;
+
+          if (userData.reminder) {
+            setLocalStorageData(token);
+          } else {
+            setSessionData(token);
+          }
+          setSigned(true);
+          history.push("/app");
+        }
+      }
+    } catch (error) {
+      setErrorMessage(error);
     }
   }
   function Logout() {
@@ -112,7 +118,7 @@ export const AuthProvider: React.FC = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ signed, loading, Login, Logout, CreateUser }}
+      value={{ signed, loading, error: errorMessage.message, Login, Logout, CreateUser }}
     >
       {children}
     </AuthContext.Provider>

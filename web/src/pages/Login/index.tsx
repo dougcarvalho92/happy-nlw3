@@ -20,10 +20,12 @@ const Login: React.FC = () => {
   const [reminder, setReminder] = useState(false);
   const { push } = useHistory();
 
-  function handleLogin(e: FormEvent) {
+  async function handleLogin(e: FormEvent) {
     e.preventDefault();
-
-    Login({ userinfo: { username: email, password }, reminder });
+    await Login({
+      userinfo: { username: email, password },
+      reminder,
+    });
   }
   return (
     <LoginContainer>
