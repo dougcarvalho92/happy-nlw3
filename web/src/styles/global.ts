@@ -18,7 +18,11 @@ input,
 textarea {
   font: 600 18px Nunito, sans-serif;
 }
-
+a{
+  text-decoration: none;
+  color:#8fa7b3;
+  margin-top: 15px;
+}
 `;
 
 export default GlobalStyle;

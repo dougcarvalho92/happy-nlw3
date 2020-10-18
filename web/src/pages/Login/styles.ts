@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const LoginContainer = styled.div`
@@ -176,3 +177,7 @@ export const GoBackButton = styled.button`
   justify-content: center;
   align-items: center;
 `;
+
+export const GoToRegister = styled(Link)`
+
+`

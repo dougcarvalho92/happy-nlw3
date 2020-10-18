@@ -6,6 +6,7 @@ import {
   FormContainer,
   RememberPass,
   GoBackButton,
+  GoToRegister,
 } from "./styles";
 
 import logo from "../../images/login-logo.svg";
@@ -87,6 +88,7 @@ const Login: React.FC = () => {
         <button className="confirm-button" type="submit">
           Confirmar
         </button>
+        <GoToRegister to="/register">Não possui conta? </GoToRegister>
       </FormContainer>
     </LoginContainer>
   );

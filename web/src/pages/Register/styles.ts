@@ -141,6 +141,21 @@ export const FormContainer = styled.form`
     }
   }
 `;
+export const GoBackButton = styled.button`
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  border: 0;
+  background: #EBF2F5;
+  border-radius: 16px;
+  top: 30px;
+  right: 30px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 export const ErrorContent = styled.div`
   font-family: Nunito;

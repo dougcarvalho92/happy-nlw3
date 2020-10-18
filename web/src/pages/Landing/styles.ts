@@ -9,6 +9,7 @@ export const LandingContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 30px;
 `;
 
 export const ContentWrapper = styled.div`

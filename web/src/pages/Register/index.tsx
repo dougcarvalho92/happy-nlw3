@@ -10,6 +10,9 @@ import {
 import logo from "../../images/login-logo.svg";
 
 import { useAuth } from "../../context/AuthContext";
+import { GoBackButton, GoToRegister } from "../Login/styles";
+import { FiArrowLeft } from "react-icons/fi";
+import { useHistory } from "react-router-dom";
 
 interface ErrosTypes {
   email?: string;
@@ -18,6 +21,7 @@ interface ErrosTypes {
 }
 const Register: React.FC = () => {
   const { CreateUser } = useAuth();
+  const { push } = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -94,6 +98,9 @@ const Register: React.FC = () => {
       </BarraLateral>
 
       <FormContainer onSubmit={handleRegisterNewUser}>
+      <GoBackButton type="button" onClick={() => push("/app")}>
+          <FiArrowLeft size={24} color="#12afcb" />
+        </GoBackButton>
         <fieldset>
           <legend>Registre-se</legend>
 
@@ -149,7 +156,10 @@ const Register: React.FC = () => {
         <button className="confirm-button" type="submit">
           Confirmar
         </button>
+        <GoToRegister to="/login">Já possui conta? </GoToRegister>
+
       </FormContainer>
+
     </RegisterContainer>
   );
 };
